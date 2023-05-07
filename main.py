@@ -10,8 +10,12 @@ client = discord.Client(intents=discord.Intents.default())
 cg = CoinGeckoAPI()
 load_dotenv()
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-print(BOT_TOKEN)
+# BOT_TOKEN = os.getenv("BOT_TOKEN")
+## when storing bot_token locally in .env
+
+BOT_TOKEN = os.environ['BOT_TOKEN']
+## when storing bot token in heroku
+
 def fetch_crypto_price(crypto_id):
     url = f'https://api.coingecko.com/api/v3/simple/price?ids={crypto_id}&vs_currencies=usd'
     response = requests.get(url)
