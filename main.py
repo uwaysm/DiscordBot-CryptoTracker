@@ -3,10 +3,15 @@ import requests
 import aiohttp
 import asyncio
 from pycoingecko import CoinGeckoAPI
+from dotenv import load_dotenv
+import os
 
 client = discord.Client(intents=discord.Intents.default())
 cg = CoinGeckoAPI()
+load_dotenv()
 
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+print(BOT_TOKEN)
 def fetch_crypto_price(crypto_id):
     url = f'https://api.coingecko.com/api/v3/simple/price?ids={crypto_id}&vs_currencies=usd'
     response = requests.get(url)
@@ -46,7 +51,7 @@ async def update_bot_nickname(crypto_id):
     while True:
         crypto_price = fetch_crypto_price(crypto_id)
         if crypto_price:
-            nickname = f"{crypto_id.upper()}: ${crypto_price}"
+            nickname = f"${crypto_price}"
             for guild in client.guilds:
                 await guild.me.edit(nick=nickname)
         await asyncio.sleep(1 * 60)  # Wait for 1 minute
@@ -54,9 +59,9 @@ async def update_bot_nickname(crypto_id):
 @client.event
 async def on_ready():
     print('Logged in as {0.user}'.format(client))
-    crypto_id = 'cosmos'  # Change 'cosmos' to any other crypto ID to fetch its price and image
+    crypto_id = 'alpharushai'  # Change 'cosmos' to any other crypto ID to fetch its price and image
     await update_bot_avatar(crypto_id)  # Update bot avatar only when the script is run
     await update_bot_nickname(crypto_id)
 
-client.run('YOUR_BOT_TOKEN')
+client.run(BOT_TOKEN)
 
