@@ -15,7 +15,7 @@ load_dotenv()
 
 BOT_TOKEN = os.environ['BOT_TOKEN']
 ## when storing bot token in heroku
-
+print(BOT_TOKEN)
 def fetch_crypto_price(crypto_id):
     url = f'https://api.coingecko.com/api/v3/simple/price?ids={crypto_id}&vs_currencies=usd'
     response = requests.get(url)
